@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Multi-Region App</title>
+  <style>
+    body { font-family: system-ui, sans-serif; background:#0f172a; color:#e2e8f0; display:grid; place-items:center; min-height:100vh; margin:0; }
+    .card { background:#1e293b; padding:2rem 3rem; border-radius:12px; box-shadow:0 8px 30px #0006; }
+    h1 { margin-top:0; } code { color:#38bdf8; }
+    button { background:#38bdf8; border:0; padding:.5rem 1rem; border-radius:6px; cursor:pointer; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Multi-Region Deployment</h1>
+    <p>Served from region: <code id="region">...</code></p>
+    <p>Instance/container: <code id="host">...</code></p>
+    <p>Server time: <code id="time">...</code></p>
+    <button onclick="load()">Refresh</button>
+  </div>
+  <script>
+    async function load() {
+      const d = await (await fetch("/api/info")).json();
+      document.getElementById("region").textContent = d.region;
+      document.getElementById("host").textContent = d.hostname;
+      document.getElementById("time").textContent = d.time;
+    }
+    load();
+  </script>
+</body>
+</html>
